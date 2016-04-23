@@ -10,12 +10,7 @@
  */
 angular
   .module('scoutApp', [
-    'ngAria',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
+    'ngRoute'
   ])
   .config(function ($routeProvider) {
     $routeProvider

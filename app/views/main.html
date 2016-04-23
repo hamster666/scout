@@ -1,7 +1,25 @@
 <div class="jumbotron">
-  <h1>Scout - explore</h1>
+    <h1>Explore</h1>
+</div>
+
+<form ng-submit="main.request()" >
+
+    <input ng-model="main.location" placeholder="London">
+
+    <input type="submit" value="Show me">
+</form>
+
+<div class="row">
+    <div class="col-xs-6 col-md-4" ng-repeat="venue in main.data.response.venues">
+
+        <div class="result">
+            <p>{{venue.name}}</p>
+            <p>{{venue.location.address}}</p>
+        </div>
+
+    </div>
 </div>
 
 <div class="row marketing">
-  <h2>Here's my map?</h2>
+    <h2>Here's my map?</h2>
 </div>
