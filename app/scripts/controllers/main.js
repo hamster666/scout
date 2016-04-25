@@ -22,11 +22,9 @@ angular.module('scoutApp')
 	     	var location = main.location;
 	  		var url = 'https://api.foursquare.com/v2/venues/search?near=' + location + '&client_id=' + clientId + '&client_secret=' + clientSecret + '&v=20120609';
 
-  			console.log(location);
-  			console.log(url);
 
 	  		$http.get(url).success(function(data){
-	  			console.log('go');
+	  			console.log(data);
 	  			
 	  			main.data = data;
 	

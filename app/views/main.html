@@ -1,15 +1,18 @@
 <!-- <h1>Explore</h1> -->
 
 <form class="cta-form" ng-submit="main.request()">
-    <input class="cta-form__input" ng-model="main.location" placeholder="eg. London">
+    <label for="location-input" class="access">Enter a location here</label>
+    <input class="cta-form__input" name="location-input" ng-model="main.location" placeholder="eg. London">
     <input class="cta-form__input" type="submit" value="Show me">
 </form>
 
 <div class="row">
-    <div class="col-xs-6 col-md-4" ng-repeat="venue in main.data.response.venues">
+    <div class="col-xs-6 col-xl-4" ng-repeat="venue in main.data.response.venues">
         <div class="result">
             <h2 class="result__title">{{venue.name}}</h2>
             <p>{{venue.location.address}}</p>
+
+            <a class="result__url" ng-show="{{'venue.url'}}" ng-href="{{venue.url}}">Website</a>
         </div>
     </div>
 </div>
