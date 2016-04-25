@@ -1,0 +1,33 @@
+$mediumSpace: 20px;
+
+body {
+	background: #eee;
+}
+
+
+.cta-form {
+
+	/*text-align: center;*/
+
+	&__input {
+		font-size: 20px;
+		padding: 20px 30px;
+		border: 0;
+		box-shadow: 0;
+		margin-bottom: $mediumSpace;
+		margin-right: $mediumSpace;
+	}
+}
+
+.result {
+	border: 1px solid grey;
+	background: #fff;
+	padding: 20px;
+	height: 150px;
+	margin-bottom: $mediumSpace;
+
+	&__title {
+		font-size: 18px;
+		margin-top: 0;
+	}
+}
