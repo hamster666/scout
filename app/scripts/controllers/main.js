@@ -16,29 +16,33 @@
  			lng: -0.09,
  			zoom: 10
  		},
- 		markers: {}, 
- 		data: []
+ 		markers: {},
+ 		data: {}
  	});
 
  	var main = this;
  	var clientId = 'UNHXHYYH0QA5OERAA0WCQDRNWXHAUAFQXEHX4E10WL0LIO2V';
  	var clientSecret = 'I2CBDWCHZVLFGDXXFINGAHVOCEGJXOZUNZHDMW2OUYSDDD4K';
 
- 	main.data = [];
+ 	// main.data = [];
 
  	main.request = function(form) {
 
- 		var location = main.location;
+ 		var location = $scope.location;
+
+ 		// configure API request URL
  		var url = 'https://api.foursquare.com/v2/venues/search?near=' + location + '&client_id=' + clientId + '&client_secret=' + clientSecret + '&v=20120609&query=pizza';
 
+ 		// check form is valid before making request
  		if(form.$valid){
 
+			// make request to foursqaure api
  			$http.get(url).success(function(data){
 
- 				main.data = data;
+ 				$scope.data = data;
 
- 				var coords = data.response.geocode.feature.geometry.center;
- 				var venues = main.data.response.venues;
+ 				var coords = $scope.data.response.geocode.feature.geometry.center;
+ 				var venues = $scope.data.response.venues;
 
  				$scope.place.lat = coords.lat;
  				$scope.place.lng = coords.lng;
@@ -52,6 +56,8 @@
 
  				});
 
+ 			}).error(function(){
+ 				$scope.requestError = true;
  			});
  		}
  	};
