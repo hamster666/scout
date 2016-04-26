@@ -10,7 +10,9 @@
  */
 angular
   .module('scoutApp', [
-    'ngRoute'
+    'ngRoute',
+    'nemLogging',
+    'ui-leaflet'
   ])
   .config(function ($routeProvider) {
     $routeProvider
