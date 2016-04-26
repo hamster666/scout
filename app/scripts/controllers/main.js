@@ -14,7 +14,7 @@
  		place: {
  			lat: 51.505,
  			lng: -0.09,
- 			zoom: 9
+ 			zoom: 10
  		},
  		markers: {}, 
  		data: []
@@ -29,8 +29,7 @@
  	main.request = function(form) {
 
  		var location = main.location;
- 		var url = 'https://api.foursquare.com/v2/venues/search?near=' + location + '&client_id=' + clientId + '&client_secret=' + clientSecret + '&v=20120609';
-
+ 		var url = 'https://api.foursquare.com/v2/venues/search?near=' + location + '&client_id=' + clientId + '&client_secret=' + clientSecret + '&v=20120609&query=pizza';
 
  		if(form.$valid){
 
@@ -44,11 +43,12 @@
  				$scope.place.lat = coords.lat;
  				$scope.place.lng = coords.lng;
 
- 				angular.forEach(venues, function(value, key) {
+ 				angular.forEach(venues, function(venue, key) {
 
  					$scope.markers['venue'+key] = {};
-					$scope.markers['venue'+key].lat = value.location.lat;
-					$scope.markers['venue'+key].lng = value.location.lng;
+					$scope.markers['venue'+key].lat = venue.location.lat;
+					$scope.markers['venue'+key].lng = venue.location.lng;
+					$scope.markers['venue'+key].message = venue.name;
 
  				});
 
