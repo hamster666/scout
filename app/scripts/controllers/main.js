@@ -12,8 +12,7 @@
  .controller('MainCtrl', ['fourSquareFac', function (fourSquareFac) {
 
  	var main = this;
-	main.test = 'thing';
-	main.what = '1986';
+	main.showResult = false;
 
  	angular.extend(main, {
  		mapCenter: {
@@ -28,44 +27,44 @@
 
  		// check form is valid before making request
  		if(form.$valid){
-
 			// call factory to make request and format data
  			fourSquareFac.getData(main.location).then(function(data){
 	 			showResults(data.formattedData);
-	 			requestOutcome(true);
+	 			main.requestOutcome(true);
 	 		},
 	 		function(){
 	 			console.log('mega fail');
-	 			requestOutcome(false);
+	 			main.requestOutcome(false);
 	 		})
  		}
 
- 		// update 'main' object to update view
- 		function showResults(d){
-
-		 	angular.extend(main, {
-		 		match: d.match,
-		 		venues: d.venues
-		 	});
-
-		 	main.mapCenter.lat = d.coords.lat;
-			main.mapCenter.lng = d.coords.lng;
-
-			angular.forEach(main.venues, function(venue, key) {
-				
-				var id = 'venue'+key;
-				main.markers[id] = {};
-				main.markers[id].lat = venue.location.lat;
-				main.markers[id].lng = venue.location.lng;
-				main.markers[id].message = venue.name;
-			});
- 		}
-
- 		// show location result title
- 		function requestOutcome(val){
- 			main.showResult = true;
- 			main.success = val;
- 		}
  	};
+
+ 	// update 'main' object to update view
+	function showResults(d){
+
+	 	angular.extend(main, {
+	 		match: d.match,
+	 		venues: d.venues
+	 	});
+
+	 	main.mapCenter.lat = d.coords.lat;
+		main.mapCenter.lng = d.coords.lng;
+
+		angular.forEach(main.venues, function(venue, key) {
+			
+			var id = 'venue'+key;
+			main.markers[id] = {};
+			main.markers[id].lat = venue.location.lat;
+			main.markers[id].lng = venue.location.lng;
+			main.markers[id].message = venue.name;
+		});
+	}
+
+	// show location result title
+	main.requestOutcome = function(val){
+		main.showResult = true;
+		main.success = val;
+	}
 
  }]);
