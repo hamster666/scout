@@ -7,58 +7,64 @@
  * # MainCtrl
  * Controller of the scoutApp
  */
- angular.module('scoutApp')
- .controller('MainCtrl', [ '$http', '$scope', function ($http, $scope) {
 
- 	angular.extend($scope, {
- 		place: {
+ angular.module('scoutApp')
+ .controller('MainCtrl', ['fourSquareFac', function (fourSquareFac) {
+
+ 	var main = this;
+	main.test = 'thing';
+	main.what = '1986';
+
+ 	angular.extend(main, {
+ 		mapCenter: {
  			lat: 51.505,
  			lng: -0.09,
  			zoom: 10
  		},
- 		markers: {},
- 		data: {}
+ 		markers: {}
  	});
 
- 	var main = this;
- 	var clientId = 'UNHXHYYH0QA5OERAA0WCQDRNWXHAUAFQXEHX4E10WL0LIO2V';
- 	var clientSecret = 'I2CBDWCHZVLFGDXXFINGAHVOCEGJXOZUNZHDMW2OUYSDDD4K';
-
- 	// main.data = [];
-
  	main.request = function(form) {
-
- 		var location = $scope.location;
-
- 		// configure API request URL
- 		var url = 'https://api.foursquare.com/v2/venues/search?near=' + location + '&client_id=' + clientId + '&client_secret=' + clientSecret + '&v=20120609&query=pizza';
 
  		// check form is valid before making request
  		if(form.$valid){
 
-			// make request to foursqaure api
- 			$http.get(url).success(function(data){
+			// call factory to make request and format data
+ 			fourSquareFac.getData(main.location).then(function(data){
+	 			showResults(data.formattedData);
+	 			requestOutcome(true);
+	 		},
+	 		function(){
+	 			console.log('mega fail');
+	 			requestOutcome(false);
+	 		})
+ 		}
 
- 				$scope.data = data;
+ 		// update 'main' object to update view
+ 		function showResults(d){
 
- 				var coords = $scope.data.response.geocode.feature.geometry.center;
- 				var venues = $scope.data.response.venues;
+		 	angular.extend(main, {
+		 		match: d.match,
+		 		venues: d.venues
+		 	});
 
- 				$scope.place.lat = coords.lat;
- 				$scope.place.lng = coords.lng;
+		 	main.mapCenter.lat = d.coords.lat;
+			main.mapCenter.lng = d.coords.lng;
 
- 				angular.forEach(venues, function(venue, key) {
+			angular.forEach(main.venues, function(venue, key) {
+				
+				var id = 'venue'+key;
+				main.markers[id] = {};
+				main.markers[id].lat = venue.location.lat;
+				main.markers[id].lng = venue.location.lng;
+				main.markers[id].message = venue.name;
+			});
+ 		}
 
- 					$scope.markers['venue'+key] = {};
-					$scope.markers['venue'+key].lat = venue.location.lat;
-					$scope.markers['venue'+key].lng = venue.location.lng;
-					$scope.markers['venue'+key].message = venue.name;
-
- 				});
-
- 			}).error(function(){
- 				$scope.requestError = true;
- 			});
+ 		// show location result title
+ 		function requestOutcome(val){
+ 			main.showResult = true;
+ 			main.success = val;
  		}
  	};
 

@@ -2,21 +2,21 @@
 
 <form name="ctaForm" ng-submit="main.request(ctaForm)" novalidate>
     <label for="location-input" class="access">Enter a location here</label>
-    <input class="cta-form__input" name="location-input" ng-model="location" placeholder="eg. London" required>
+    <input class="cta-form__input" ng-change="main.showResult=false" name="location-input" ng-model="main.location" placeholder="eg. London" required>
     <input class="cta-form__input" type="submit" value="Show me">
 </form>
 
-<h2 ng-show="main.data.length">Results for: {{main.data.response.geocode.feature.matchedName}}</h2>
-<p ng-show="requestError">Sorry, no results for "{{location}}"</p>
+<h2 ng-show="main.showResult && main.success">Results for: {{main.match}}</h2>
+<p ng-show="main.showResult && main.success==false">Sorry, no results for "{{main.location}}"</p>
 <div class="row">
-     <leaflet lf-center="place" markers="markers" width="100%" height="480px"></leaflet>
+     <leaflet lf-center="main.mapCenter" markers="main.markers" width="100%" height="480px"></leaflet>
 </div>
 <br>
 
 <div class="row">
-    <div class="col-xs-6 col-xl-4" ng-repeat="venue in data.response.venues">
+    <div class="col-xs-6 col-xl-4" ng-repeat="venue in main.venues">
         <div class="result">
-            <h2 class="result__title">{{venue.name}}</h2>
+            <h3 class="result__title">{{venue.name}}</h3>
             <p>{{venue.location.address}}</p>
             <a class="result__url" ng-show="{{'venue.url'}}" ng-href="{{venue.url}}">Website</a>
         </div>
