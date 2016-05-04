@@ -4,7 +4,7 @@ For all your pizza needs
 
 ## Setup
 
-Run 'npm install' and 'bower install' to install dependencies
+Run `npm install` and `bower install` to install dependencies
 
 ## Build & development
 
