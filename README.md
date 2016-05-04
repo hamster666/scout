@@ -1,6 +1,6 @@
 # scout
 
-For all your pizza needs
+For all your pizza needs - Scout is an angular app that uses the foursquare API to allow you to search for a location, and returns all of the nearest pizza joints. 
 
 ## Setup
 
