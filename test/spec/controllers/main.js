@@ -5,15 +5,11 @@ describe('Controller: MainCtrl', function () {
     // load the controller's module
     beforeEach(module('scoutApp'));
 
-    var MainCtrl,
-    scope;
+    var MainCtrl;
 
-    // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope) {
-        scope = $rootScope.$new();
-        MainCtrl = $controller('MainCtrl', {
-          $scope: scope
-        }); 
+    // Initialize the controller 
+    beforeEach(inject(function ($controller) {
+        MainCtrl = $controller('MainCtrl'); 
     }));
 
 

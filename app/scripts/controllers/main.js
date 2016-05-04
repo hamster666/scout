@@ -8,8 +8,8 @@
  * Controller of the scoutApp
  */
 
- angular.module('scoutApp')
- .controller('MainCtrl', ['fourSquareFac', function (fourSquareFac) {
+angular.module('scoutApp')
+ 	.controller('MainCtrl', ['fourSquareFac', function (fourSquareFac) {
 
  	var main = this;
 	main.showResult = false;
@@ -52,7 +52,6 @@
 		main.mapCenter.lng = d.coords.lng;
 
 		angular.forEach(main.venues, function(venue, key) {
-			
 			var id = 'venue'+key;
 			main.markers[id] = {};
 			main.markers[id].lat = venue.location.lat;
@@ -66,5 +65,4 @@
 		main.showResult = true;
 		main.success = val;
 	}
-
- }]);
+}]);
