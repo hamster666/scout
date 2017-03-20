@@ -12,7 +12,6 @@ RUN npm install
 COPY . /usr/src/app
 
 
-EXPOSE 8080
+EXPOSE 9000
 CMD [ "npm", "start" ]
 
-USER jenkins
