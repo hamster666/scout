@@ -1,25 +1,14 @@
 #!/usr/bin/groovy 
 
-pipeline {
-    agent any 
+node {
+    stage "Prep env"
+        checkout scm
 
-    stages {
-        stage('Build') { 
-            steps { 
-                echo 'Building...'
-                sh 'npm install'
-            }
+        docker.image('node').inside {
+            stage "stage 1 - install deps"
+                sh "npm install"
+            
+            stage "stage 2 - test"
+                sh "npm test"
         }
-        stage('Test'){
-            steps {
-                echo 'Testing...'
-                sh 'npm test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploy...'
-            }
-        }
-    }
 }
