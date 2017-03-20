@@ -7,11 +7,10 @@ describe('Controller: MainCtrl', function () {
 
     var MainCtrl;
 
-    // Initialize the controller 
+    // Initialize the controller
     beforeEach(inject(function ($controller) {
-        MainCtrl = $controller('MainCtrl'); 
+        MainCtrl = $controller('MainCtrl');
     }));
-
 
     it('should extend MainCtrl to have coords', function () {
         expect(MainCtrl.mapCenter.lat).toBe(51.505);
